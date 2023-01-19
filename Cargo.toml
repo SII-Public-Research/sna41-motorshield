@@ -1,6 +1,6 @@
 [package]
 edition = "2021"
-name = "sna41_motorshield"
+name = "sna41-motorshield"
 categories = ["embedded", "no-std"]
 version = "0.1.0"
 
