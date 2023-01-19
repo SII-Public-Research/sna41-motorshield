@@ -1,0 +1,13 @@
+[package]
+edition = "2021"
+name = "sna41_motorshield"
+categories = ["embedded", "no-std"]
+version = "0.1.0"
+
+
+[dependencies]
+embedded-hal = "0.2.7"
+pwm-pca9685 = "0.3.1"
+
+
+
