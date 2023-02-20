@@ -1,18 +1,52 @@
+//! SNA41 Motorhield and Servo-motors driver.
+//! 
+//! It aims to provide ready-to-use interface for building robots with 4 wheels and servos.
+//! 
+//! You can also find a PS2 controller on the shield that is for now not provided on thi crate. 
+//! 
+//! 
+//! 
+//! 
+//! 
 #![no_std]
 
+pub mod motors;
+pub mod servo;
+
+
+use core::fmt::{Debug, Formatter, Result as fmtResult};
 use embedded_hal::blocking::i2c::{Write, WriteRead};
 use pwm_pca9685::{Channel, Pca9685};
 
-#[derive(Debug)]
-pub enum Error<E> {
-    //Overflow,
-    Pca(pwm_pca9685::Error<E>),
+pub enum Error<E> 
+{
+    PcaError(pwm_pca9685::Error<E>),
+    MotorError(u8),
+    ServoError(u8),    
 }
 
-impl<E> From<pwm_pca9685::Error<E>> for Error<E> {
-    fn from(error: pwm_pca9685::Error<E>) -> Self {
-        Error::Pca(error)
+// impl<E> Error<E>
+// {
+//     fn from(error: pwm_pca9685::Error<E>) -> Self {
+//         Error::PcaError(error)
+//     }
+// }
+
+impl<E> Debug for Error<E> 
+where
+    E: Debug,
+{
+    fn fmt(&self, f: &mut Formatter) -> fmtResult {
+        match self {
+            | Error::PcaError(error) =>
+                write!(f, "PcaError( {:?})", error),
+            | Error::MotorError(error) =>
+                write!(f, "Error from motor : ( {:?})", error),
+            | Error::ServoError(error) =>
+                write!(f, "Error from servo : ( {:?})", error),
+        }
     }
+
 }
 
 #[derive(Debug)]
@@ -27,7 +61,7 @@ where
 {
     pub fn new(i2c: I2C) -> Result<MotorShield<I2C>, Error<E>> {
         let mut motorshield = MotorShield {
-            pwm: Pca9685::new(i2c, 0x60)?,
+            pwm: Pca9685::new(i2c, 0x60).map_err(Error::PcaError)?,
             motors: [
                 (Channel::C8, Channel::C9),
                 (Channel::C13, Channel::C12),
@@ -36,8 +70,8 @@ where
             ],
         };
 
-        motorshield.pwm.set_prescale(100)?;
-        motorshield.pwm.enable()?;
+        motorshield.pwm.set_prescale(100).map_err(Error::PcaError)?;
+        motorshield.pwm.enable().map_err(Error::PcaError)?;
 
         Ok(motorshield)
     }
@@ -68,10 +102,10 @@ where
         channels: (Channel, Channel),
         powers: (u16, u16),
     ) -> Result<(), Error<E>> {
-        self.pwm.set_channel_on(channels.0, 0)?;
-        self.pwm.set_channel_off(channels.0, powers.0)?;
-        self.pwm.set_channel_on(channels.1, 0)?;
-        self.pwm.set_channel_off(channels.1, powers.1)?;
+        self.pwm.set_channel_on(channels.0, 0).map_err(Error::PcaError)?;
+        self.pwm.set_channel_off(channels.0, powers.0).map_err(Error::PcaError)?;
+        self.pwm.set_channel_on(channels.1, 0).map_err(Error::PcaError)?;
+        self.pwm.set_channel_off(channels.1, powers.1).map_err(Error::PcaError)?;
         Ok(())
     }
 

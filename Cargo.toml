@@ -9,5 +9,6 @@ version = "0.1.0"
 embedded-hal = "0.2.7"
 pwm-pca9685 = "0.3.1"
 
-
-
+[dev-dependencies]
+# rppal = { version = "0.14.1", features = ["hal"] }
+linux-embedded-hal = "0.3.2"
