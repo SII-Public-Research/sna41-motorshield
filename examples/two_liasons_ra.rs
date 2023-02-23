@@ -1,3 +1,4 @@
+// test connexion
 use rppal::i2c::I2c;
 use sna41_motorshield::{servo::ServoNumber, MotorShield};
 
