@@ -2,16 +2,18 @@ use std::ops::Add;
 
 use embedded_hal::prelude::_embedded_hal_blocking_delay_DelayMs;
 // test connexion
-
+use rppal::i2c::I2c;
+use rppal::hal::Delay;
 use sna41_motorshield::{servo::ServoNumber, MotorShield};
 
 use pwm_pca9685::{Address, Channel, Pca9685};
-use linux_embedded_hal::I2cdev;
 
 
 fn main() {
 
-    let i2c = I2cdev::new("/dev/i2c-1").expect("1");
+    let mut delay = Delay::new();
+
+    let i2c = I2c::new().expect("1");
     // let mut ms = MotorShield::new(i2c).expect("I2C not detected.");
     let address = Address::default();
     let mut pwm = Pca9685::new(i2c, address).unwrap();

@@ -12,6 +12,6 @@ strum = "0.24.1"
 strum_macros = "0.24.3"
 
 [dev-dependencies]
-# rppal = { version = "0.14.1", features = ["hal"] }
-linux-embedded-hal = "0.3.2"
+rppal = { version = "0.14.1", features = ["hal"] }
+# linux-embedded-hal = "0.3.2"
 pwm-pca9685 = "0.3.1"
