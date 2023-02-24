@@ -15,8 +15,8 @@ fn main() {
 
     let i2c = I2c::new().expect("1");
     // let mut ms = MotorShield::new(i2c).expect("I2C not detected.");
-    let address = Address::default();
-    let mut pwm = Pca9685::new(i2c, address).unwrap();
+    // let address = Address::default();
+    let mut pwm = Pca9685::new(i2c, 0x60).unwrap();
 
     pwm.set_prescale(100).unwrap();
 
