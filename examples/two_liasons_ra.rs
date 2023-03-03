@@ -22,11 +22,12 @@ fn main() {
     pwm.enable().unwrap();
 
     loop {
-        pwm.set_channel_full_on(Channel::C0, 0).unwrap();
+        pwm.set_channel_on_off(Channel::C0, 0, 1000).unwrap();
         delay.delay_ms(2000_u64);
         pwm.set_channel_on_off(Channel::C0, 0, 2047).unwrap();
         delay.delay_ms(2000_u64);
-        pwm.set_channel_on_off(Channel::C0, 0, 4094).unwrap();
+        pwm.set_channel_on_off(Channel::C0, 0, 3000).unwrap();
+        delay.delay_ms(2000_u64);
         // ms.set_servo(ServoNumber::S2, 30.0).unwrap();
         // delay.delay_ms(1000_u64);
         // ms.set_servo(ServoNumber::S2, 40.0).unwrap();
