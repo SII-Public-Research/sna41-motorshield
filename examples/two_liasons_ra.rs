@@ -28,6 +28,8 @@ fn main() {
         delay.delay_ms(2000_u64);
         pwm.set_channel_on_off(Channel::C0, 0, 3000).unwrap();
         delay.delay_ms(2000_u64);
+        pwm.set_channel_on_off(Channel::C0, 3000, 0).unwrap();
+        delay.delay_ms(2000_u64);
         // ms.set_servo(ServoNumber::S2, 30.0).unwrap();
         // delay.delay_ms(1000_u64);
         // ms.set_servo(ServoNumber::S2, 40.0).unwrap();
