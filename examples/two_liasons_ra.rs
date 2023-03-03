@@ -18,7 +18,7 @@ fn main() {
     // let address = Address::default();
     let mut pwm = Pca9685::new(i2c, 0x60).unwrap();
 
-    pwm.set_prescale(60).unwrap();
+    pwm.set_prescale(100).unwrap();
     pwm.enable().unwrap();
 
     loop {
