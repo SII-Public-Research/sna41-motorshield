@@ -24,15 +24,12 @@ fn main() {
     loop {
         pwm.set_channel_on_off(Channel::C0, 0, 658).unwrap();
         delay.delay_ms(2000_u64);
-        // pwm.set_channel_on_off(Channel::C0, 0, 1000).unwrap();
-        // delay.delay_ms(5000_u64);
-        // pwm.set_channel_on_off(Channel::C0, 0, 3000).unwrap();
-        // delay.delay_ms(2000_u64);
-        // pwm.set_channel_on_off(Channel::C0, 3000, 0).unwrap();
-        // delay.delay_ms(2000_u64);
-        pwm.set_channel_on_off(Channel::C0, 0, 205).unwrap();
-        delay.delay_ms(2000_u64);
         pwm.set_channel_on_off(Channel::C0, 0, 101).unwrap();
+        delay.delay_ms(2000_u64);
+
+        pwm.set_channel_on_off(Channel::C1, 0, 658).unwrap();
+        delay.delay_ms(2000_u64);
+        pwm.set_channel_on_off(Channel::C1, 0, 101).unwrap();
         delay.delay_ms(2000_u64);
     }
     
