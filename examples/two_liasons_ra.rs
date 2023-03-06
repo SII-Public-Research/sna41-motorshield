@@ -22,7 +22,9 @@ fn main() {
     pwm.enable().unwrap();
 
     loop {
-        pwm.set_channel_on_off(Channel::C0, 0, 400).unwrap();
+        pwm.set_channel_on_off(Channel::C0, 0, 409).unwrap();
+        delay.delay_ms(2000_u64);
+        pwm.set_channel_on_off(Channel::C0, 0, 307).unwrap();
         delay.delay_ms(2000_u64);
         // pwm.set_channel_on_off(Channel::C0, 0, 1000).unwrap();
         // delay.delay_ms(5000_u64);
@@ -30,7 +32,7 @@ fn main() {
         // delay.delay_ms(2000_u64);
         // pwm.set_channel_on_off(Channel::C0, 3000, 0).unwrap();
         // delay.delay_ms(2000_u64);
-        pwm.set_channel_on_off(Channel::C0, 0, 300).unwrap();
+        pwm.set_channel_on_off(Channel::C0, 0, 205).unwrap();
         delay.delay_ms(2000_u64);
     }
     
