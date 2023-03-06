@@ -27,9 +27,9 @@ fn main() {
         pwm.set_channel_on_off(Channel::C0, 0, 101).unwrap();
         delay.delay_ms(2000_u64);
 
-        pwm.set_channel_on_off(Channel::C1, 0, 400).unwrap();
+        pwm.set_channel_on_off(Channel::C1, 0, 658).unwrap();
         delay.delay_ms(2000_u64);
-        pwm.set_channel_on_off(Channel::C1, 0, 200).unwrap();
+        pwm.set_channel_on_off(Channel::C1, 0, 101).unwrap();
         delay.delay_ms(2000_u64);
     }
     
