@@ -38,8 +38,8 @@ fn main() {
 
         ms.set_servo_angle(ServoNumber::S2, 0.0).unwrap();
         delay.delay_ms(2000_u64);
-        ms.set_servo_angle(ServoNumber::S2, 180.0).unwrap();
-        delay.delay_ms(2000_u64);
+        // ms.set_servo_angle(ServoNumber::S2, 180.0).unwrap();
+        // delay.delay_ms(2000_u64);
     }
 
 }
