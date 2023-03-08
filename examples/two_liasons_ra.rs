@@ -37,7 +37,12 @@ fn main() {
         ms.set_servo_angle(ServoNumber::S1, 0.0).unwrap();
 
         ms.set_servo_angle(ServoNumber::S2, 0.0).unwrap();
-        delay.delay_ms(2000_u64);
+        delay.delay_ms(5000_u64);
+        ms.set_servo_angle(ServoNumber::S0, 180.0).unwrap();
+        ms.set_servo_angle(ServoNumber::S1, 180.0).unwrap();
+
+        ms.set_servo_angle(ServoNumber::S2, 180.0).unwrap();
+        delay.delay_ms(5000_u64);
         // ms.set_servo_angle(ServoNumber::S2, 180.0).unwrap();
         // delay.delay_ms(2000_u64);
     }
