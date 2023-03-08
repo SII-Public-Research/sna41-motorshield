@@ -19,8 +19,8 @@ use pwm_pca9685::{Channel, Pca9685};
 
 pub enum Error<E> {
     PcaError(pwm_pca9685::Error<E>),
-    MotorError(pwm_pca9685::Error<E>),
-    ServoError(pwm_pca9685::Error<E>),
+    MotorError(i8),
+    ServoError(i8),
 }
 
 impl<E> Debug for Error<E>
@@ -31,14 +31,17 @@ where
         match self {
             Error::PcaError(error) => write!(f, "PcaError( {:?})", error),
             Error::MotorError(error) => write!(f, "Error from motor : ( {:?})", error),
-            Error::ServoError(error) => write!(f, "Error from servo : ( {:?})", error),
-        }
+            Error::ServoError(error) => match error {
+                0 => write!(f, "Error from servo : Specified angle value is not valid (0 - 180)"),
+                _ => write!(f, "Error from servo : unknown"),
+            } 
+        }  
     }
 }
 
 #[derive(Debug)]
 pub struct MotorShield<I2C> {
-    pwm: Pca9685<I2C>,
+    pca: Pca9685<I2C>,
 }
 
 impl<I2C, E> MotorShield<I2C>
@@ -47,21 +50,21 @@ where
 {
     pub fn new(i2c: I2C) -> Result<MotorShield<I2C>, Error<E>> {
         let mut motorshield = MotorShield {
-            pwm: Pca9685::new(i2c, 0x60).map_err(Error::PcaError)?,
+            pca: Pca9685::new(i2c, 0x60).map_err(Error::PcaError)?,
         };
 
-        motorshield.pwm.set_prescale(100).map_err(Error::PcaError)?;
-        motorshield.pwm.enable().map_err(Error::PcaError)?;
+        motorshield.pca.set_prescale(100).map_err(Error::PcaError)?;
+        motorshield.pca.enable().map_err(Error::PcaError)?;
 
         Ok(motorshield)
     }
 
-    // Set the 'channel' pwm to be up from 0 to 'power'
+    // Set the 'channel' pca to be up from 0 to 'power'
     fn set_power(&mut self, channel: Channel, power: u16) -> Result<(), Error<E>> {
-        self.pwm
+        self.pca
             .set_channel_on(channel, 0)
             .map_err(Error::PcaError)?;
-        self.pwm
+        self.pca
             .set_channel_off(channel, power)
             .map_err(Error::PcaError)?;
         Ok(())
