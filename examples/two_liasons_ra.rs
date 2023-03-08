@@ -1,3 +1,5 @@
+// servo is controled from 101 to 658
+
 use std::ops::Add;
 
 use embedded_hal::prelude::_embedded_hal_blocking_delay_DelayMs;
@@ -22,12 +24,12 @@ fn main() {
     pwm.enable().unwrap();
 
     loop {
-        pwm.set_channel_on_off(Channel::C0, 0, 658).unwrap();
+        pwm.set_channel_on_off(Channel::C0, 0, 655).unwrap();
         delay.delay_ms(2000_u64);
-        pwm.set_channel_on_off(Channel::C0, 0, 101).unwrap();
+        pwm.set_channel_on_off(Channel::C0, 0, 105).unwrap();
         delay.delay_ms(2000_u64);
 
-        pwm.set_channel_on_off(Channel::C1, 0, 650).unwrap();
+        pwm.set_channel_on_off(Channel::C1, 0, 655).unwrap();
         delay.delay_ms(2000_u64);
         pwm.set_channel_on_off(Channel::C1, 0, 105).unwrap();
         delay.delay_ms(2000_u64);
