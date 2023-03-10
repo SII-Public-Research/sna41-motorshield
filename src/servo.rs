@@ -51,7 +51,7 @@ where
             return Err(Error::ServoError(0))
         }
         else {
-            let comm = 3.056 * angle + 105.0;
+            let comm = (49.0/18.0) * angle + 110.0;
             let comm = comm as u16;
             self.pca.set_channel_on_off(servo.get_channel(), 0, comm).map_err(Error::PcaError)?;
         }
